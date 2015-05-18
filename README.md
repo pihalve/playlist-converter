@@ -1,7 +1,7 @@
 # Playlist Converter
 Converts iTunes playlists to Spotify playlists.
 
-![alt text](https://github.com/pihalve/playlist-converter/screenshot.png "Screenshot of main application window")
+![alt text](https://github.com/pihalve/playlist-converter/blob/master/screenshot.png "Screenshot of main application window")
 
 # How to use
 
