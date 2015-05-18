@@ -1,6 +1,8 @@
 # Playlist Converter
 Converts iTunes playlists to Spotify playlists.
 
+![alt text](https://github.com/pihalve/playlist-converter/screenshot.png "Screenshot of main application window")
+
 # How to use
 
 First you select an iTunes playlist (must be in XML format). This will import the songs of the playlist into the list view of the application main window.
