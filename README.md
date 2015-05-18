@@ -3,7 +3,7 @@ Converts iTunes playlists to Spotify playlists.
 
 # How to use
 
-First you select an iTunes playlist (must be in XML format). This will import the songs of the playlist into the list view.
+First you select an iTunes playlist (must be in XML format). This will import the songs of the playlist into the list view of the application main window.
 
 Then you press "Convert to Spotify playlist" button. This will initiate a Spotify search for each song in the list view. If a match is found for a song, that song will have the note icon changed into a Spotify icon. Songs for which no match is found will be marked with a grey background and will not get a Spotify icon. When the conversion is done a "Drag me to Spotify" button will appear. You can now drag this into an appropriate playlist in Spotify, and the songs will be added to that Spotify playlist.
 
