@@ -1,0 +1,46 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Pihalve.PlaylistConverter.UI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="IncludeArtistInSearch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="IncludeAlbumInSearch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="IncludeYearInSearch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="IncludeTrackInSearch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="RemoveParenthesesPartsFromArtist" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="RemoveParenthesesPartsFromAlbum" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="RemoveParenthesesPartsFromTrack" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FallbackSequence" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Pihalve.PlaylistConverter.Application.Services.Spotify.Rules.IncludeAlbumFilterRule,Pihalve.PlaylistConverter.Application;False;Exclude album from search&lt;/string&gt;
+  &lt;string&gt;Pihalve.PlaylistConverter.Application.Services.Spotify.Rules.IncludeArtistFilterRule,Pihalve.PlaylistConverter.Application;False;Exclude artist from search&lt;/string&gt;
+  &lt;string&gt;Pihalve.PlaylistConverter.Application.Services.Spotify.Rules.IncludeTrackFilterRule,Pihalve.PlaylistConverter.Application;False;Exclude track from search&lt;/string&gt;
+  &lt;string&gt;Pihalve.PlaylistConverter.Application.Services.Spotify.Rules.IncludeYearFilterRule,Pihalve.PlaylistConverter.Application;False;Exclude year from search&lt;/string&gt;
+  &lt;string&gt;Pihalve.PlaylistConverter.Application.Domain.Rules.RemoveArtistParenthesesPartsProcessorRule,Pihalve.PlaylistConverter.Application;False;Remove artist parentheses parts from search&lt;/string&gt;
+  &lt;string&gt;Pihalve.PlaylistConverter.Application.Domain.Rules.RemoveAlbumParenthesesPartsProcessorRule,Pihalve.PlaylistConverter.Application;False;Remove album parentheses parts from search&lt;/string&gt;
+  &lt;string&gt;Pihalve.PlaylistConverter.Application.Domain.Rules.RemoveTrackParenthesesPartsProcessorRule,Pihalve.PlaylistConverter.Application;False;Remove track parentheses parts from search&lt;/string&gt;
+  &lt;string&gt;Pihalve.PlaylistConverter.Application.Domain.Rules.RemoveWordsProcessorRule,Pihalve.PlaylistConverter.Application;False;Remove words from search&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="WordsToRemove" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RemoveWords" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
