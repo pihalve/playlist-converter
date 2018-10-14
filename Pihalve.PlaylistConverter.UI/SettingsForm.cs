@@ -38,6 +38,10 @@ namespace Pihalve.PlaylistConverter.UI
                 string[] parts = item.Split(';');
                 AddFallbackSequenceItem(new CheckedListItem {Value = parts[0], Checked = bool.Parse(parts[1]), Text = parts[2] });
             }
+
+            txtClientId.Text = Settings.Default.ClientId;
+            txtClientSecret.Text = Settings.Default.ClientSecret;
+            txtClientSecret.UseSystemPasswordChar = true;
         }
 
         private void AddFallbackSequenceItem(CheckedListItem item)
@@ -86,6 +90,11 @@ namespace Pihalve.PlaylistConverter.UI
             }
         }
 
+        private void btnViewClientSecret_Click(object sender, EventArgs e)
+        {
+            txtClientSecret.UseSystemPasswordChar = !txtClientSecret.UseSystemPasswordChar;
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -115,6 +124,9 @@ namespace Pihalve.PlaylistConverter.UI
                 fallbackSequenceItems.Add(item);
             }
             Settings.Default.FallbackSequence = fallbackSequenceItems;
+
+            Settings.Default.ClientId = txtClientId.Text;
+            Settings.Default.ClientSecret = txtClientSecret.Text;
 
             Settings.Default.Save();
 

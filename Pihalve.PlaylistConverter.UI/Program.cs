@@ -19,10 +19,16 @@ namespace Pihalve.PlaylistConverter.UI
             IRequestClient requestClient = new RequestClient();
             IRuleProcessor ruleProcessor = new RuleProcessor();
             IRulesFactory rulesFactory = new SpotifyRulesFactory();
+            ITokenRetriever tokenRetriever = new SpotifyTokenRetriever(
+                ConfigurationManager.AppSettings["accountsServiceUrl"],
+                Properties.Settings.Default.ClientId,
+                Properties.Settings.Default.ClientSecret,
+                requestClient);
             ITrackSearcher trackSearcher = new SpotifyTrackSearcher(
                 ConfigurationManager.AppSettings["trackSearchBaseUrl"],
                 requestClient,
-                ruleProcessor);
+                ruleProcessor,
+                tokenRetriever);
             ITrackConverter trackConverter = new TrackConverter(
                 Convert.ToInt32(ConfigurationManager.AppSettings["requestsPerSecond"]),
                 trackSearcher);

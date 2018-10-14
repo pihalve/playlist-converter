@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Pihalve.PlaylistConverter.Application.Domain;
 using Pihalve.PlaylistConverter.Application.Domain.Rules;
 using Pihalve.PlaylistConverter.Application.Exceptions;
@@ -16,13 +16,14 @@ namespace Pihalve.PlaylistConverter.Application.Services.Spotify
         private readonly string _baseSearchUrl;
         private readonly IRequestClient _requestClient;
         private readonly IRuleProcessor _ruleProcessor;
-        private readonly XNamespace _ns = "http://www.spotify.com/ns/music/1";
+        private readonly ITokenRetriever _tokenRetriever;
 
-        public SpotifyTrackSearcher(string baseSearchUrl, IRequestClient requestClient, IRuleProcessor ruleProcessor)
+        public SpotifyTrackSearcher(string baseSearchUrl, IRequestClient requestClient, IRuleProcessor ruleProcessor, ITokenRetriever tokenRetriever)
         {
             _baseSearchUrl = baseSearchUrl;
             _requestClient = requestClient;
             _ruleProcessor = ruleProcessor;
+            _tokenRetriever = tokenRetriever;
         }
 
         public async Task<IEnumerable<PlaylistItem>> FindAsync(PlaylistItem playlistItem, HashSet<BaseRule> searchRules)
@@ -30,63 +31,53 @@ namespace Pihalve.PlaylistConverter.Application.Services.Spotify
             if (playlistItem == null) throw new ArgumentNullException("playlistItem");
 
             string url = CreateUrl(playlistItem, searchRules);
-            string response = await _requestClient.PerformRequestAsync(url);
-            IEnumerable<XElement> tracks = ReadTrackElements(response);
-            return ParseResult(tracks);
-        }
+            var authToken = await _tokenRetriever.GetToken();
+            string response = await _requestClient.GetAsync(url, authToken);
+            var pagingObject = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(response);
 
-        private IEnumerable<XElement> ReadTrackElements(string response)
-        {
             try
             {
-                XDocument spotifyResultDocument = XDocument.Parse(response);
-                return spotifyResultDocument
-                    .Descendants(_ns + "tracks")
-                        .Descendants(_ns + "track");
+                var tracks = ParseResult(pagingObject);
+                return tracks;
             }
-            catch
+            catch (Exception ex)
             {
-                throw new InvalidPlaylistFormatException("Spotify");
+                throw new InvalidPlaylistFormatException("Spotify", ex);
             }
         }
 
-        private IEnumerable<PlaylistItem> ParseResult(IEnumerable<XElement> trackElements)
+        private IEnumerable<PlaylistItem> ParseResult(dynamic pagingObject)
         {
             var playlistItems = new List<PlaylistItem>();
 
-            foreach (XElement track in trackElements)
+            foreach (var track in pagingObject.tracks.items)
             {
-                var id = GetValue<string>("id", track);
-                var trackName = GetValue<string>("name", track);
-                var artist = GetValue<string>("name", track.Element(_ns + "artist"));
-                var album = GetValue<string>("name", track.Element(_ns + "album"));
-                var year = GetValue<int?>("released", track.Element(_ns + "album"));
-                var territories = GetValue<string>("territories", track.Descendants(_ns + "album").First().Element(_ns + "availability"));
-                XAttribute trackLink = track.Attribute("href");
-                if (trackLink != null && !string.IsNullOrEmpty(trackLink.Value))
-                {
-                    playlistItems.Add(PlaylistItem.Create(id, artist, album, year, trackName, territories.Split(' '), trackLink.Value));
-                }
+                playlistItems.Add(PlaylistItem.Create(
+                    (string)track.id,
+                    (string)track.artists[0].name,
+                    (string)track.album.name,
+                    GetYear((string)track.album.release_date, (string)track.album.release_date_precision),
+                    (string)track.name,
+                    Enumerable.Empty<string>(),
+                    (string)track.href));
             }
 
             return playlistItems;
         }
 
-        private T GetValue<T>(string name, XElement trackElement)
+        private static int? GetYear(string releaseDate, string releaseDatePrecision)
         {
-            var trackChildElement = trackElement.Element(_ns + name);
-            if (trackChildElement != null)
+            switch (releaseDatePrecision)
             {
-                string value = trackChildElement.Value;
-                Type targetType = typeof(T);
-                Type nullableType = Nullable.GetUnderlyingType(targetType);
-                if (nullableType != null)
-                {
-                    targetType = nullableType;
-                }
-                return (T)Convert.ChangeType(value, targetType);
+                case "year":
+                    return int.Parse(releaseDate);
+                case "month":
+                    return DateTime.ParseExact(releaseDate, "yyyy-MM", CultureInfo.InvariantCulture).Year;
+                case "day":
+                    return DateTime.ParseExact(releaseDate, "yyyy-MM-dd", CultureInfo.InvariantCulture).Year;
+                default:
+                    throw new FormatException($"Unsupported format for {nameof(releaseDate)}");
             }
-            return default(T);
         }
 
         private string CreateUrl(PlaylistItem playlistItem, HashSet<BaseRule> rules)
@@ -95,6 +86,7 @@ namespace Pihalve.PlaylistConverter.Application.Services.Spotify
             PlaylistItem processedPlaylistItem = _ruleProcessor.Process(playlistItem, processorRules);
 
             var filterRules = GetFilterRules(rules);
+
             string queryString = GenerateFilter(processedPlaylistItem, filterRules);
 
             return string.Format("{0}?q={1}", _baseSearchUrl, queryString);
@@ -115,6 +107,12 @@ namespace Pihalve.PlaylistConverter.Application.Services.Spotify
                     queryString.Append(filter);
                 }
             }
+
+            if (queryString.Length > 0)
+            {
+                queryString.Append("&type=track");
+            }
+
             return queryString.ToString();
         }
 

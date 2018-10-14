@@ -4,7 +4,7 @@ namespace Pihalve.PlaylistConverter.Application.Domain
 {
     public class SearchSettings
     {
-        private HashSet<FallbackItem> _fallbackSequence;
+        private List<FallbackItem> _fallbackSequence;
 
         public bool IncludeArtistInSearch { get; set; }
         public bool IncludeAlbumInSearch { get; set; }
@@ -17,9 +17,9 @@ namespace Pihalve.PlaylistConverter.Application.Domain
         public bool RemoveWords { get; set; }
         public string WordsToRemove { get; set; }
 
-        public HashSet<FallbackItem> FallbackSequence
+        public List<FallbackItem> FallbackSequence
         {
-            get { return _fallbackSequence ?? (_fallbackSequence = new HashSet<FallbackItem>()); }
+            get { return _fallbackSequence ?? (_fallbackSequence = new List<FallbackItem>()); }
             set { _fallbackSequence = value; }
         }
     }

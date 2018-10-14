@@ -23,8 +23,7 @@ namespace Pihalve.PlaylistConverter.Application.Services
             _trackSearcher = trackSearcher;
         }
 
-        //TODO: it seems the order of items in fallbackSequence is significant, so it should NOT be a HashSet
-        public async void ConvertAsync(IEnumerable<PlaylistItem> playlistItems, HashSet<BaseRule> rules, HashSet<FallbackItem> fallbackSequence)
+        public async void ConvertAsync(IEnumerable<PlaylistItem> playlistItems, HashSet<BaseRule> rules, List<FallbackItem> fallbackSequence)
         {
             if (playlistItems == null) throw new ArgumentNullException("playlistItems");
             if (rules == null) throw new ArgumentNullException("rules");

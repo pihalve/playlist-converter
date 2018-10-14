@@ -9,6 +9,6 @@ namespace Pihalve.PlaylistConverter.Application.Services
     {
         event EventHandler<TrackConvertionEventArgs> TrackConvertedEvent;
         event EventHandler TracksConvertedEvent;
-        void ConvertAsync(IEnumerable<PlaylistItem> playlistItems, HashSet<BaseRule> rules, HashSet<FallbackItem> fallbackSequence);
+        void ConvertAsync(IEnumerable<PlaylistItem> playlistItems, HashSet<BaseRule> rules, List<FallbackItem> fallbackSequence);
     }
 }

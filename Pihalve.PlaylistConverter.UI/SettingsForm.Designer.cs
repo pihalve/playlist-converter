@@ -46,23 +46,30 @@
             this.cmbCountry = new System.Windows.Forms.ComboBox();
             this.chkCountryInclude = new System.Windows.Forms.CheckBox();
             this.grpProcessors = new System.Windows.Forms.GroupBox();
+            this.chkRemoveWords = new System.Windows.Forms.CheckBox();
             this.txtWordsToRemove = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chkTrackRemoveParentheses = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.chkAlbumRemoveParentheses = new System.Windows.Forms.CheckBox();
             this.chkArtistRemoveParentheses = new System.Windows.Forms.CheckBox();
-            this.chkRemoveWords = new System.Windows.Forms.CheckBox();
+            this.grpCredentials = new System.Windows.Forms.GroupBox();
+            this.txtClientSecret = new System.Windows.Forms.TextBox();
+            this.lblClientSecret = new System.Windows.Forms.Label();
+            this.txtClientId = new System.Windows.Forms.TextBox();
+            this.lblClientId = new System.Windows.Forms.Label();
+            this.btnViewClientSecret = new System.Windows.Forms.Button();
             this.grpFallbackSequence.SuspendLayout();
             this.grpFilters.SuspendLayout();
             this.grpCountry.SuspendLayout();
             this.grpProcessors.SuspendLayout();
+            this.grpCredentials.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(381, 431);
+            this.btnCancel.Location = new System.Drawing.Point(381, 524);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 0;
@@ -73,7 +80,7 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(300, 431);
+            this.btnOk.Location = new System.Drawing.Point(300, 524);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 1;
@@ -92,7 +99,7 @@
             this.grpFallbackSequence.Location = new System.Drawing.Point(12, 256);
             this.grpFallbackSequence.Name = "grpFallbackSequence";
             this.grpFallbackSequence.Size = new System.Drawing.Size(444, 163);
-            this.grpFallbackSequence.TabIndex = 2;
+            this.grpFallbackSequence.TabIndex = 4;
             this.grpFallbackSequence.TabStop = false;
             this.grpFallbackSequence.Text = "Fallback sequence";
             // 
@@ -144,7 +151,7 @@
             this.grpFilters.Location = new System.Drawing.Point(12, 71);
             this.grpFilters.Name = "grpFilters";
             this.grpFilters.Size = new System.Drawing.Size(221, 179);
-            this.grpFilters.TabIndex = 3;
+            this.grpFilters.TabIndex = 2;
             this.grpFilters.TabStop = false;
             this.grpFilters.Text = "Filters";
             // 
@@ -243,9 +250,19 @@
             this.grpProcessors.Location = new System.Drawing.Point(239, 72);
             this.grpProcessors.Name = "grpProcessors";
             this.grpProcessors.Size = new System.Drawing.Size(217, 178);
-            this.grpProcessors.TabIndex = 5;
+            this.grpProcessors.TabIndex = 3;
             this.grpProcessors.TabStop = false;
             this.grpProcessors.Text = "Processors";
+            // 
+            // chkRemoveWords
+            // 
+            this.chkRemoveWords.AutoSize = true;
+            this.chkRemoveWords.Location = new System.Drawing.Point(35, 145);
+            this.chkRemoveWords.Name = "chkRemoveWords";
+            this.chkRemoveWords.Size = new System.Drawing.Size(15, 14);
+            this.chkRemoveWords.TabIndex = 12;
+            this.chkRemoveWords.UseVisualStyleBackColor = true;
+            this.chkRemoveWords.CheckedChanged += new System.EventHandler(this.chkRemoveWords_CheckedChanged);
             // 
             // txtWordsToRemove
             // 
@@ -302,21 +319,73 @@
             this.chkArtistRemoveParentheses.Text = "Artist";
             this.chkArtistRemoveParentheses.UseVisualStyleBackColor = true;
             // 
-            // chkRemoveWords
+            // grpCredentials
             // 
-            this.chkRemoveWords.AutoSize = true;
-            this.chkRemoveWords.Location = new System.Drawing.Point(35, 145);
-            this.chkRemoveWords.Name = "chkRemoveWords";
-            this.chkRemoveWords.Size = new System.Drawing.Size(15, 14);
-            this.chkRemoveWords.TabIndex = 12;
-            this.chkRemoveWords.UseVisualStyleBackColor = true;
-            this.chkRemoveWords.CheckedChanged += new System.EventHandler(this.chkRemoveWords_CheckedChanged);
+            this.grpCredentials.Controls.Add(this.btnViewClientSecret);
+            this.grpCredentials.Controls.Add(this.txtClientSecret);
+            this.grpCredentials.Controls.Add(this.lblClientSecret);
+            this.grpCredentials.Controls.Add(this.txtClientId);
+            this.grpCredentials.Controls.Add(this.lblClientId);
+            this.grpCredentials.Location = new System.Drawing.Point(12, 425);
+            this.grpCredentials.Name = "grpCredentials";
+            this.grpCredentials.Size = new System.Drawing.Size(444, 88);
+            this.grpCredentials.TabIndex = 5;
+            this.grpCredentials.TabStop = false;
+            this.grpCredentials.Text = "Credentials";
+            // 
+            // txtClientSecret
+            // 
+            this.txtClientSecret.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtClientSecret.Location = new System.Drawing.Point(85, 52);
+            this.txtClientSecret.Name = "txtClientSecret";
+            this.txtClientSecret.Size = new System.Drawing.Size(312, 20);
+            this.txtClientSecret.TabIndex = 3;
+            this.txtClientSecret.UseSystemPasswordChar = true;
+            // 
+            // lblClientSecret
+            // 
+            this.lblClientSecret.AutoSize = true;
+            this.lblClientSecret.Location = new System.Drawing.Point(14, 55);
+            this.lblClientSecret.Name = "lblClientSecret";
+            this.lblClientSecret.Size = new System.Drawing.Size(65, 13);
+            this.lblClientSecret.TabIndex = 2;
+            this.lblClientSecret.Text = "Client secret";
+            // 
+            // txtClientId
+            // 
+            this.txtClientId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtClientId.Location = new System.Drawing.Point(85, 26);
+            this.txtClientId.Name = "txtClientId";
+            this.txtClientId.Size = new System.Drawing.Size(344, 20);
+            this.txtClientId.TabIndex = 1;
+            // 
+            // lblClientId
+            // 
+            this.lblClientId.AutoSize = true;
+            this.lblClientId.Location = new System.Drawing.Point(14, 29);
+            this.lblClientId.Name = "lblClientId";
+            this.lblClientId.Size = new System.Drawing.Size(47, 13);
+            this.lblClientId.TabIndex = 0;
+            this.lblClientId.Text = "Client ID";
+            // 
+            // btnViewClientSecret
+            // 
+            this.btnViewClientSecret.Image = ((System.Drawing.Image)(resources.GetObject("btnViewClientSecret.Image")));
+            this.btnViewClientSecret.Location = new System.Drawing.Point(403, 50);
+            this.btnViewClientSecret.Name = "btnViewClientSecret";
+            this.btnViewClientSecret.Size = new System.Drawing.Size(26, 23);
+            this.btnViewClientSecret.TabIndex = 4;
+            this.btnViewClientSecret.UseVisualStyleBackColor = true;
+            this.btnViewClientSecret.Click += new System.EventHandler(this.btnViewClientSecret_Click);
             // 
             // SearchSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(468, 466);
+            this.ClientSize = new System.Drawing.Size(468, 559);
+            this.Controls.Add(this.grpCredentials);
             this.Controls.Add(this.grpProcessors);
             this.Controls.Add(this.grpCountry);
             this.Controls.Add(this.grpFilters);
@@ -337,6 +406,8 @@
             this.grpCountry.PerformLayout();
             this.grpProcessors.ResumeLayout(false);
             this.grpProcessors.PerformLayout();
+            this.grpCredentials.ResumeLayout(false);
+            this.grpCredentials.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -367,5 +438,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkRemoveWords;
+        private System.Windows.Forms.GroupBox grpCredentials;
+        private System.Windows.Forms.TextBox txtClientSecret;
+        private System.Windows.Forms.Label lblClientSecret;
+        private System.Windows.Forms.TextBox txtClientId;
+        private System.Windows.Forms.Label lblClientId;
+        private System.Windows.Forms.Button btnViewClientSecret;
     }
 }

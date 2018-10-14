@@ -7,9 +7,9 @@ namespace Pihalve.PlaylistConverter.Application.Services
 {
     public static class FallbackItemFactory
     {
-        public static HashSet<FallbackItem> Create(StringCollection fallbackSequence)
+        public static List<FallbackItem> Create(StringCollection fallbackSequence)
         {
-            var list = new HashSet<FallbackItem>();
+            var list = new List<FallbackItem>();
             foreach (var item in fallbackSequence)
             {
                 string[] parts = item.Split(';');
