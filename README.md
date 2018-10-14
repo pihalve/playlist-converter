@@ -1,5 +1,6 @@
 # Playlist Converter
 Converts iTunes playlists to Spotify playlists.
+[Updated October 2018 to use current Spotify web api]
 
 ![alt text](https://github.com/pihalve/playlist-converter/blob/master/screenshot.png "Screenshot of main application window")
 
@@ -10,6 +11,8 @@ First you select an iTunes playlist (must be in XML format). This will import th
 Then you press "Convert to Spotify playlist" button. This will initiate a Spotify search for each song in the list view. If a match is found for a song, that song will have the note icon changed into a Spotify icon. Songs for which no match is found will be marked with a grey background and will not get a Spotify icon. When the conversion is done a "Drag me to Spotify" button will appear. You can now drag this into an appropriate playlist in Spotify, and the songs will be added to that Spotify playlist.
 
 If you go to "View->Advanced" and then expand the Playlist Converter window (or drag the horizontal scroll bar) you will see the Spotify search result for each song in the list view.
+
+Note @ October 2018: Nowadays the Spotify web api requires the usage of access tokens for calling endpoints. Currently, I have implemented this using "Client Credentials Flow" authorization. However, this is not really a good solution, because it requires a client ID and client secret to be available with the application. Since PlaylistConverter is a desktop application, there is no secure way to do that. Therefore, I have added two extra settings to use for client ID and client secret. However, you have to obtain these yourself (https://developer.spotify.com/dashboard/applications) and add them to PlaylistConverter in the settings dialog.
 
 # How the Spotify search works
 
