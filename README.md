@@ -12,7 +12,7 @@ Then you press "Convert to Spotify playlist" button. This will initiate a Spotif
 
 If you go to "View->Advanced" and then expand the Playlist Converter window (or drag the horizontal scroll bar) you will see the Spotify search result for each song in the list view.
 
-Note @ October 2018: Nowadays the Spotify web api requires the usage of access tokens for calling endpoints. Currently, I have implemented this using "Client Credentials Flow" authorization. However, this is not really a good solution, because it requires a client ID and client secret to be available with the application. Since PlaylistConverter is a desktop application, there is no secure way to do that. Therefore, I have added two extra settings to use for client ID and client secret. However, you have to obtain these yourself (https://developer.spotify.com/dashboard/applications) and add them to PlaylistConverter in the settings dialog.
+Note @ October 2018: Nowadays the Spotify web api requires the usage of access tokens for calling endpoints. Currently, I have implemented this using "Client Credentials Flow" authorization. However, this is not really a good solution, because it requires a client ID and client secret to be available with the application. Since PlaylistConverter is a desktop application, there is no secure way to do that. Therefore, I have added two extra empty settings to use for client ID and client secret. However, you have to obtain ID and secret yourself (https://developer.spotify.com/dashboard/applications) and add them to PlaylistConverter in the settings dialog.
 
 # How the Spotify search works
 
